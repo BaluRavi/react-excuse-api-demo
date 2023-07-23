@@ -7,9 +7,24 @@ function App() {
   const [generateExcuse, setGenerateExcuse] = useState("");
   const fetchExcuseData = (excuse) => {
 
-    axios.get(`https://excuser-three.vercel.app/v1/excuse/${excuse}/`)
+    axios.get(`https://excuser-three.vercel.app/v12/excuse/${excuse}/`)
       //.then((response) => response.data.map((item) => setExcuse(item.excuse)))
-      .then((response) => setGenerateExcuse(response.data[0].excuse));
+      .then((response) => setGenerateExcuse(response.data[0].excuse))
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+        else if (error.request) {
+          console.log(error.request)
+
+        }
+        else {
+          console.log('Error is ' + error.message);
+        }
+      })
   }
 
   return (
